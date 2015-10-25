@@ -1,4 +1,4 @@
-package com.xyxy.appcenter;
+package com.xyxy.appcenter.activity;
 
 import android.app.Application;
 import android.content.Context;
