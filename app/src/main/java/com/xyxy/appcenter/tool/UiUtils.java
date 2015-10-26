@@ -19,4 +19,12 @@ public class UiUtils {
     public static Resources getResource(){
         return BaseApplication.getApplication().getResources();
     }
+
+    public static void runOnUiThread(Runnable runnable) {
+        if(android.os.Process.myTid() == BaseApplication.getMainTid()){
+            runnable.run();
+        }else {
+            BaseApplication.getHandler().post(runnable);
+        }
+    }
 }
