@@ -32,4 +32,8 @@ public class UiUtils {
     public static Drawable getDrawalbe(int id) {
         return getResource().getDrawable(id);
     }
+
+    public static int getDimens(int home_picture_height){
+        return (int)getResource().getDimension(home_picture_height);
+    }
 }

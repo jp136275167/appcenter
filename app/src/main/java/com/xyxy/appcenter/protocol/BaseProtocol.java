@@ -58,10 +58,14 @@ public abstract class BaseProtocol<T> {
     }
 
     private String loadServer(int index) {
-        HttpHelper.HttpResult httpResult=HttpHelper.get(HttpHelper.URL+getKey()+"?index="+index);
-        String json=httpResult.getString();
-        System.out.println(json);
-        return json;
+        HttpHelper.HttpResult httpResult=HttpHelper.get(HttpHelper.URL + getKey() + "?index=" + index);
+        if(httpResult !=null){
+            String json=httpResult.getString();
+            // System.out.println(json);
+            return json;
+        }else {
+            return null;
+        }
     }
 
 

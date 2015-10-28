@@ -4,12 +4,15 @@ package com.xyxy.appcenter.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
 
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.bitmap.PauseOnScrollListener;
 import com.xyxy.appcenter.R;
 import com.xyxy.appcenter.adapter.ListBaseAdapter;
 import com.xyxy.appcenter.domain.AppInfo;
+import com.xyxy.appcenter.holder.HomePictureHolder;
 import com.xyxy.appcenter.protocol.ChoiceProtocol;
 import com.xyxy.appcenter.tool.BitmapHelper;
 import com.xyxy.appcenter.tool.UiUtils;
@@ -24,6 +27,7 @@ import java.util.List;
 public class ChoiceFragment extends BaseFragment{
     private BitmapUtils bitmapUtils;
     protected List<AppInfo> datas;
+    protected List<String> pictures;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -34,6 +38,7 @@ public class ChoiceFragment extends BaseFragment{
     protected LoadingPage.LoadResult load() {
         ChoiceProtocol protocol = new ChoiceProtocol();
         datas = protocol.load(0);
+        pictures=protocol.getPictures();
         return checkData(datas);
     }
 
@@ -42,6 +47,13 @@ public class ChoiceFragment extends BaseFragment{
     protected View CreateSuccessView() {
 
         BaseListView listview = new BaseListView(UiUtils.getContext());
+        HomePictureHolder holder=new HomePictureHolder();
+        holder.setData(pictures);
+        View contentView = holder.getContentView();
+        contentView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        listview.addHeaderView(contentView);
+
+
         listview.setAdapter(new ListBaseAdapter(datas) {
             @Override
             protected List<AppInfo> onload() {

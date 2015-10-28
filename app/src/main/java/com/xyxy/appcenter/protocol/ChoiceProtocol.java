@@ -13,6 +13,11 @@ import java.util.List;
  * Created by Administrator on 2015/10/26.
  */
 public class ChoiceProtocol extends BaseProtocol<List<AppInfo>>{
+    private List<String> pictures;
+
+    public List<String> getPictures() {
+        return pictures;
+    }
 
     @Override
     protected String getKey() {
@@ -20,9 +25,18 @@ public class ChoiceProtocol extends BaseProtocol<List<AppInfo>>{
     }
 
     protected   List<AppInfo> parseJson(String json) {
+
+        pictures=new ArrayList<String>();
+
         List<AppInfo> appInfos=new ArrayList<AppInfo>();
         try {
             JSONObject jsonObject=new JSONObject(json);
+            JSONArray jsonArray1 = jsonObject.getJSONArray("picture");
+            for(int i=0;i<jsonArray1.length();i++){
+                String str=jsonArray1.getString(i);
+                pictures.add(str);
+            }
+
             JSONArray jsonArray=jsonObject.getJSONArray("list");
             for(int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject1=jsonArray.getJSONObject(i);
