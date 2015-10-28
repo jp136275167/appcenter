@@ -9,21 +9,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.xyxy.appcenter.R;
+import com.xyxy.appcenter.view.LoadingPage;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TopFragment extends Fragment {
-
-
-    public TopFragment() {
-        // Required empty public constructor
-    }
-
+public class TopFragment extends BaseFragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected LoadingPage.LoadResult load() {
+        return LoadingPage.LoadResult.success;
+    }
+
+    @Override
+    protected View CreateSuccessView() {
         TextView textView = new TextView(getActivity());
         textView.setText(R.string.topfragment);
         return textView;

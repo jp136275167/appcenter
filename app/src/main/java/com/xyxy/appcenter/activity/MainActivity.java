@@ -15,6 +15,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.xyxy.appcenter.R;
+import com.xyxy.appcenter.fragment.BaseFragment;
 import com.xyxy.appcenter.fragment.FragmentFactory;
 import com.xyxy.appcenter.tool.UiUtils;
 
@@ -46,7 +47,14 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
         ButterKnife.inject(this);
 
         pager.setAdapter(new MainAdapter(getSupportFragmentManager()));
-
+        pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                BaseFragment createFragment = FragmentFactory.CreateFragment(position);
+                createFragment.show();
+            }
+        });
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.mipmap.ic_drawer_am, R.string.drawer_open, R.string.drawer_close) {

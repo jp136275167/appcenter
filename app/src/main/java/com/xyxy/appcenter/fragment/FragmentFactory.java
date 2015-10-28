@@ -6,10 +6,9 @@ import java.util.Map;
  * Created by Administrator on 2015/10/25.
  */
 public class FragmentFactory {
-    private  static Map<Integer,Fragment> mFragments=new HashMap<Integer,Fragment>();
-    Fragment fragment=null;
-    public static Fragment CreateFragment(int position){
-        Fragment fragment=null;
+    private  static Map<Integer,BaseFragment> mFragments=new HashMap<Integer,BaseFragment>();
+    public static BaseFragment CreateFragment(int position){
+        BaseFragment fragment=null;
         fragment=mFragments.get(position);
         if(fragment==null){
             if(position ==0){

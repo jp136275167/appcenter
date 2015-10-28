@@ -2,6 +2,7 @@ package com.xyxy.appcenter.tool;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 
 import com.xyxy.appcenter.activity.BaseApplication;
 
@@ -26,5 +27,9 @@ public class UiUtils {
         }else {
             BaseApplication.getHandler().post(runnable);
         }
+    }
+
+    public static Drawable getDrawalbe(int id) {
+        return getResource().getDrawable(id);
     }
 }
