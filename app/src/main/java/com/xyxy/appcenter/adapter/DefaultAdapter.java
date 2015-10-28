@@ -4,13 +4,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.xyxy.appcenter.holder.BaseHolder;
+
 import java.util.List;
 
 /**
  * Created by Administrator on 2015/10/28.
  * 让其它适配器 继承它
  */
-public class DefaultAdapter<T> extends BaseAdapter {
+public abstract class DefaultAdapter<T> extends BaseAdapter {
     protected List<T> datas;
 
     public List<T> getDatas() {
@@ -42,6 +44,16 @@ public class DefaultAdapter<T> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        BaseHolder<T> holder;
+        if(convertView ==null) {
+            holder=getHolder();
+        }else {
+            holder= (BaseHolder<T>) convertView.getTag();
+        }
+        T info = datas.get(position);
+        holder.setData(info);
+        return holder.getContentView();
     }
+
+    protected abstract BaseHolder<T> getHolder();
 }

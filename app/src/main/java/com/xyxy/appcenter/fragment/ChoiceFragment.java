@@ -15,6 +15,7 @@ import com.lidroid.xutils.bitmap.PauseOnScrollListener;
 import com.xyxy.appcenter.R;
 import com.xyxy.appcenter.adapter.DefaultAdapter;
 import com.xyxy.appcenter.domain.AppInfo;
+import com.xyxy.appcenter.holder.BaseHolder;
 import com.xyxy.appcenter.http.HttpHelper;
 import com.xyxy.appcenter.protocol.ChoiceProtocol;
 import com.xyxy.appcenter.tool.BitmapHelper;
@@ -60,57 +61,23 @@ public class ChoiceFragment extends BaseFragment{
 
     private class ChoiceAdapter extends DefaultAdapter<AppInfo> {
 
-        private AppInfo appInfo;
-
         public ChoiceAdapter(List<AppInfo> datas) {
             super(datas);
         }
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-            if(convertView ==null) {
-                holder=new ViewHolder();
-            }else {
-                holder= (ViewHolder) convertView.getTag();
-            }
-            appInfo = datas.get(position);
-            holder.setData(appInfo);
-            return holder.getContentView();
+        protected BaseHolder<AppInfo> getHolder() {
+            return new ViewHolder();
         }
     }
 
-    static  class  ViewHolder{
+    static  class  ViewHolder extends BaseHolder<AppInfo>{
         ImageView item_icon;
         TextView item_title,item_des,item_size;
         RatingBar item_rating;
-        private AppInfo data;
-        private BitmapUtils bitmapUtils;
-        public AppInfo getData() {
-            return data;
-        }
-
-        public void setData(AppInfo data) {
-            this.data = data;
-            refreshView();
-        }
 
         private View contentView;
-        public ViewHolder() {
-            bitmapUtils = BitmapHelper.getBitmapUtils();
-            contentView = View.inflate(UiUtils.getContext(), R.layout.item_app, null);
-            this.item_icon= (ImageView) contentView.findViewById(R.id.item_icon);
-            this.item_title= (TextView) contentView.findViewById(R.id.item_title);
-            this.item_des= (TextView) contentView.findViewById(R.id.item_des);
-            this.item_size= (TextView) contentView.findViewById(R.id.item_size);
-            this.item_rating= (RatingBar) contentView.findViewById(R.id.item_rating);
-            contentView.setTag(this);
-        }
 
-        public View getContentView() {
-            return contentView;
-        }
-
-        public void refreshView() {
+        public void refreshView(AppInfo data) {
 
             this.item_title.setText(data.getName());
             this.item_des.setText(data.getDes());
@@ -122,6 +89,19 @@ public class ChoiceFragment extends BaseFragment{
             bitmapUtils = BitmapHelper.getBitmapUtils();
             bitmapUtils.display(this.item_icon, HttpHelper.URL + "image?name=" + iconUrl);
         }
+
+        @Override
+        protected View initView() {
+            contentView = View.inflate(UiUtils.getContext(), R.layout.item_app, null);
+            this.item_icon= (ImageView) contentView.findViewById(R.id.item_icon);
+            this.item_title= (TextView) contentView.findViewById(R.id.item_title);
+            this.item_des= (TextView) contentView.findViewById(R.id.item_des);
+            this.item_size= (TextView) contentView.findViewById(R.id.item_size);
+            this.item_rating= (RatingBar) contentView.findViewById(R.id.item_rating);
+            return contentView;
+        }
+
+
     }
 
 }
