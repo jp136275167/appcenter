@@ -53,6 +53,14 @@ public class SubjectFragment extends BaseFragment {
         protected BaseHolder<SubjectInfo> getHolder() {
             return new ViewHolder();
         }
+
+        @Override
+        protected List<SubjectInfo> onload() {
+            SubjectProtocol protocol=new SubjectProtocol();
+            List<SubjectInfo> load = protocol.load(datas.size());
+            load.addAll(datas);
+            return load;
+        }
     }
 
     static class ViewHolder extends BaseHolder<SubjectInfo>{

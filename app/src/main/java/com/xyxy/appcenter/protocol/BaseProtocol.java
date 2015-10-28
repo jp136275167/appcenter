@@ -1,5 +1,7 @@
 package com.xyxy.appcenter.protocol;
 
+import android.os.SystemClock;
+
 import com.xyxy.appcenter.http.HttpHelper;
 import com.xyxy.appcenter.tool.FileUtils;
 import com.xyxy.appcenter.tool.IOUtils;
@@ -17,6 +19,7 @@ import java.io.StringWriter;
  */
 public abstract class BaseProtocol<T> {
     public T load(int index){
+        SystemClock.sleep(1000);
         //读取本地缓存
         String json=loadLocal(index);
         if(json ==null){
